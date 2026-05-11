@@ -11,12 +11,22 @@ import { notFoundHandler } from "./middleware/notFound";
 import { apiLimiter } from "./middleware/rateLimiter";
 
 export const app = express();
+const allowedOrigins = new Set(
+  [env.clientOrigin, "http://localhost:5173", "http://localhost:3000", "http://localhost:4173"].filter(Boolean)
+);
 
 app.disable("x-powered-by");
 app.use(helmet());
 app.use(
   cors({
-    origin: (origin, callback) => callback(null, true),
+    origin: (origin, callback) => {
+      if (!origin || allowedOrigins.has(origin)) {
+        callback(null, true);
+        return;
+      }
+
+      callback(new Error(`CORS blocked for origin: ${origin}`), false);
+    },
     credentials: true,
   })
 );
