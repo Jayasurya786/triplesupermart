@@ -14,6 +14,6 @@ export const env = {
   jwtAccessExpires: process.env.JWT_ACCESS_EXPIRES ?? "15m",
   jwtRefreshExpires: process.env.JWT_REFRESH_EXPIRES ?? "7d",
   otpTtlMinutes: Number(process.env.OTP_TTL_MINUTES ?? 10),
-  clientOrigin: process.env.CLIENT_ORIGIN ?? "http://localhost:5173",
+  clientOrigin: process.env.CLIENT_ORIGIN ?? "",
   cookieSecure: process.env.COOKIE_SECURE === "true",
 };

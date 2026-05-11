@@ -82,8 +82,8 @@ async function setupAdmin() {
     }
     
     console.log('\n✓ Admin setup complete!');
-    console.log('📍 Login URL: http://localhost:5173/login');
-    console.log('📍 Admin Dashboard: http://localhost:5173/admin\n');
+    console.log('📍 Login path: /login');
+    console.log('📍 Admin Dashboard path: /admin\n');
     
     await mongoose.connection.close();
     process.exit(0);

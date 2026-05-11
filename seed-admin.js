@@ -59,8 +59,8 @@ async function seedAdmin() {
     console.log(`Email:    ${ADMIN_EMAIL}`);
     console.log(`Password: ${ADMIN_PASSWORD}`);
     console.log('=======================================\n');
-    console.log('Login at: http://localhost:5173/login');
-    console.log('Admin Dashboard: http://localhost:5173/admin\n');
+    console.log('Login path: /login');
+    console.log('Admin Dashboard path: /admin\n');
     
     process.exit(0);
   } catch (error) {
