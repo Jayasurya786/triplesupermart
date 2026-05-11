@@ -20,5 +20,9 @@ async function ensureDatabaseConnection() {
 
 export const handler: Handler = async (event, context) => {
   await ensureDatabaseConnection();
-  return expressHandler(event, context);
+  return (await expressHandler(event, context)) as any;
+};
+
+export const config = {
+  path: ["/api/v1", "/api/v1/*"],
 };
