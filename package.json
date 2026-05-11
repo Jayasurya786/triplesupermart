@@ -1,0 +1,26 @@
+{
+  "name": "triple-n-supermart",
+  "private": true,
+  "workspaces": [
+    "client",
+    "server"
+  ],
+  "scripts": {
+    "dev:client": "npm -w client run dev",
+    "dev:server": "npm -w server run dev",
+    "build:client": "npm -w client run build",
+    "build:server": "npm -w server run build",
+    "lint:client": "npm -w client run lint",
+    "lint:server": "npm -w server run lint",
+    "lint": "npm run lint:client && npm run lint:server",
+    "setup:admin": "node setup-admin.js",
+    "delete:admin": "node delete-admin.js",
+    "reset:db": "node fix-db.js"
+  },
+  "dependencies": {
+    "clsx": "^2.1.1",
+    "framer-motion": "^12.38.0",
+    "styled-components": "^6.4.1",
+    "tailwind-merge": "^3.5.0"
+  }
+}

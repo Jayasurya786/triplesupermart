@@ -1,0 +1,9 @@
+{
+  "name": "Triple N Supermart",
+  "short_name": "Triple N",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "theme_color": "#1f7a4a",
+  "icons": []
+}

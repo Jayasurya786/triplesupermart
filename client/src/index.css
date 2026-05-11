@@ -1,0 +1,125 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  color-scheme: light;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: "Manrope", "Segoe UI", "Helvetica Neue", sans-serif;
+  color: #0f1b14;
+  background: radial-gradient(circle at top, #eefbf3 0%, #ffffff 55%, #f5fbf7 100%);
+  min-height: 100vh;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+#root {
+  min-height: 100vh;
+}
+
+::selection {
+  background: rgba(46, 160, 105, 0.2);
+}
+
+/* Glass Component Borders */
+.glass-border {
+  border: 1px solid rgba(42, 163, 105, 0.2);
+}
+
+.dark .glass-border {
+  border: 1px solid rgba(74, 193, 132, 0.3);
+}
+
+/* Spotlight Navbar Background */
+.spotlight-nav-bg {
+  background-color: rgba(238, 251, 243, 0.95);
+}
+
+.dark .spotlight-nav-bg {
+  background-color: rgba(13, 43, 28, 0.95);
+}
+
+/* Spotlight Navbar Shadow */
+.spotlight-nav-shadow {
+  box-shadow: 0 10px 15px -3px rgba(42, 163, 105, 0.15), 0 4px 6px -4px rgba(42, 163, 105, 0.1);
+}
+
+.dark .spotlight-nav-shadow {
+  box-shadow: 0 10px 15px -3px rgba(42, 163, 105, 0.4), 0 4px 6px -4px rgba(42, 163, 105, 0.3);
+}
+
+/* LogoSlider - CSS Variables & Animations */
+.logo-slider {
+  --speed: 60;
+  --count: 8;
+  --blurs: 8;
+  --blur: 1;
+}
+
+.logo-slider__container {
+  mask: linear-gradient(90deg, transparent, black 15% 85%, transparent);
+  -webkit-mask: linear-gradient(90deg, transparent, black 15% 85%, transparent);
+}
+
+.logo-slider__blur > div {
+  z-index: var(--blur-index);
+  mask: linear-gradient(
+    90deg,
+    transparent calc(var(--blur-index) * calc((100 / var(--blurs)) * 1%)),
+    black calc((var(--blur-index) + 1) * calc((100 / var(--blurs)) * 1%)),
+    black calc((var(--blur-index) + 2) * calc((100 / var(--blurs)) * 1%)),
+    transparent calc((var(--blur-index) + 3) * calc((100 / var(--blurs)) * 1%))
+  );
+  backdrop-filter: blur(calc((var(--blur-index, 0) * var(--blur, 0)) * 1px));
+  -webkit-backdrop-filter: blur(calc((var(--blur-index, 0) * var(--blur, 0)) * 1px));
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .logo-slider__track {
+    gap: 0;
+    will-change: transform;
+  }
+
+  .logo-slider__item {
+    --duration: calc(var(--speed) * 1s);
+    --delay: calc((var(--duration) / var(--count)) * (var(--item-index, 0) * -1));
+    --origin-x: calc(((var(--count) - var(--item-index)) + var(--inset, 0)) * 100%);
+    --destination-x: calc((var(--item-index) + 1 + var(--outset, 0)) * -100%);
+    animation: logo-slider-slide var(--duration) var(--delay) infinite linear;
+    translate: var(--origin-x) 0;
+    will-change: transform;
+  }
+
+  @keyframes logo-slider-slide {
+    100% {
+      translate: var(--destination-x) 0;
+    }
+  }
+}
+
+.logo-slider__container[data-direction="right"] .logo-slider__item {
+  animation-direction: reverse;
+}
+
+.logo-slider__container[data-pause-on-hover="true"]:hover .logo-slider__item {
+  animation-play-state: paused;
+}
+
+/* Prevent horizontal scroll bars */
+.logo-slider {
+  overflow-x: hidden;
+}
+
+.logo-slider__track {
+  overflow-x: visible;
+}

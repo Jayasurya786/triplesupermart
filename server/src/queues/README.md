@@ -1,0 +1,3 @@
+# Queues
+
+Queue configuration placeholder.
