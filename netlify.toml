@@ -6,6 +6,18 @@ publish = "client/dist"
 directory = "netlify/functions"
 
 [[redirects]]
+from = "/api/v1/*"
+to = "/.netlify/functions/api/:splat"
+status = 200
+force = true
+
+[[redirects]]
+from = "/api/v1"
+to = "/.netlify/functions/api"
+status = 200
+force = true
+
+[[redirects]]
 from = "/*"
 to = "/index.html"
 status = 200
