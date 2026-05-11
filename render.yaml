@@ -2,6 +2,9 @@ services:
   - type: web
     name: triplensupermart-api
     runtime: node
+    # If Render is trying to build via Docker, point it at the monorepo backend Dockerfile
+    dockerfilePath: server/Dockerfile
+    dockerContext: server
     buildCommand: npm ci && npm -w server run build
     startCommand: npm -w server start
     healthCheckPath: /health
