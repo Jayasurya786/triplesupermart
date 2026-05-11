@@ -20,7 +20,9 @@ app.use(helmet());
 app.use(
   cors({
     origin: (origin, callback) => {
-      if (!origin || allowedOrigins.has(origin)) {
+      const isNetlifyOrigin = typeof origin === "string" && /^https:\/\/[a-z0-9-]+\.netlify\.app$/i.test(origin);
+
+      if (!origin || allowedOrigins.has(origin) || isNetlifyOrigin) {
         callback(null, true);
         return;
       }
