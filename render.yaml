@@ -27,7 +27,7 @@ services:
       - key: OTP_TTL_MINUTES
         value: 10
       - key: CLIENT_ORIGIN
-        value: https://triplensupermart-web.onrender.com
+        sync: false
       - key: COOKIE_SECURE
         value: true
 
