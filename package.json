@@ -18,8 +18,10 @@
     "reset:db": "node fix-db.js"
   },
   "dependencies": {
+    "@netlify/functions": "^5.2.0",
     "clsx": "^2.1.1",
     "framer-motion": "^12.38.0",
+    "serverless-http": "^4.0.0",
     "styled-components": "^6.4.1",
     "tailwind-merge": "^3.5.0"
   }

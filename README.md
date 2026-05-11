@@ -4,18 +4,17 @@ Production-ready MERN platform for in-store customer engagement, loyalty, and pr
 
 ## Highlights
 
-- Modular MERN architecture with client and server separation
+- Modular app with a Vite React client and an Express API
 - JWT access + refresh tokens, OTP verification, role-based access
 - Customer ID generation format: TNS0001
 - SEO scaffolding: sitemap, robots, dynamic meta tags, structured data
-- Dockerized with Nginx reverse proxy and health checks
+- Netlify Functions deployment for the API with same-origin client calls
 
 ## Structure
 
 - client: Vite React SPA (TypeScript, Tailwind, Redux Toolkit, TanStack Query, Framer Motion)
-- server: Node.js + Express + TypeScript + MongoDB Atlas
-- nginx: Reverse proxy configuration
-- docker-compose.yml: Multi-container orchestration
+- server: Node.js + Express + TypeScript + MongoDB Atlas source used by Netlify Functions
+- netlify/functions: Netlify Function wrapper around the API
 
 ## Setup
 
@@ -29,31 +28,33 @@ Production-ready MERN platform for in-store customer engagement, loyalty, and pr
    - `npm run dev:server`
    - `npm run dev:client`
 
-## Docker
+## Deploy On Netlify
 
-1. Ensure `.env` is set.
-2. Build and start containers:
+The backend is exposed as a Netlify Function and the frontend calls the same-origin API path.
 
-   - `docker compose up --build`
+1. Connect this repository to Netlify.
+2. Use the root `netlify.toml` file.
+3. Set the runtime environment variables for the function in Netlify site settings:
+   - `MONGO_URI`
+   - `JWT_SECRET`
+   - `JWT_REFRESH_SECRET`
+   - `JWT_ACCESS_EXPIRES`
+   - `JWT_REFRESH_EXPIRES`
+   - `OTP_TTL_MINUTES`
+   - `CLIENT_ORIGIN`
+   - `COOKIE_SECURE`
+4. Redeploy the site.
 
-## Deploy On Render
+The frontend uses `VITE_API_BASE_URL=/api/v1`, and Netlify routes that path to the API function.
 
-Render is the better fit for this repo because it has both a Vite frontend and an Express API.
+## Local Development
 
-1. Create a new Blueprint deployment in Render and connect this repository.
-2. Use the root `render.yaml` file.
-3. Add `MONGO_URI` in the Render dashboard when prompted.
-4. Deploy the two generated services:
-   - `triplensupermart-api` as the backend web service
-   - `triplensupermart-web` as the static frontend
+1. Copy `.env.example` to `.env` and update values.
+2. Install dependencies with `npm install`.
+3. Run the client and server locally with:
 
-The frontend reads the API host from `VITE_API_BASE_URL`, so it can talk to the backend on Render without extra proxy config.
-
-## Deploy On Vercel
-
-Vercel is only a good fit for the frontend unless you move the API to a separate host.
-
-If you want Vercel, deploy the `client/` app as a static site and set `VITE_API_BASE_URL` to your hosted API URL.
+   - `npm run dev:server`
+   - `npm run dev:client`
 
 ## Notes
 
