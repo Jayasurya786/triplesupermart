@@ -36,6 +36,25 @@ Production-ready MERN platform for in-store customer engagement, loyalty, and pr
 
    - `docker compose up --build`
 
+## Deploy On Render
+
+Render is the better fit for this repo because it has both a Vite frontend and an Express API.
+
+1. Create a new Blueprint deployment in Render and connect this repository.
+2. Use the root `render.yaml` file.
+3. Add `MONGO_URI` in the Render dashboard when prompted.
+4. Deploy the two generated services:
+   - `triplensupermart-api` as the backend web service
+   - `triplensupermart-web` as the static frontend
+
+The frontend reads the API host from `VITE_API_BASE_URL`, so it can talk to the backend on Render without extra proxy config.
+
+## Deploy On Vercel
+
+Vercel is only a good fit for the frontend unless you move the API to a separate host.
+
+If you want Vercel, deploy the `client/` app as a static site and set `VITE_API_BASE_URL` to your hosted API URL.
+
 ## Notes
 
 - Add real OTP delivery and notification providers before production.

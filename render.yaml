@@ -1,0 +1,44 @@
+services:
+  - type: web
+    name: triplensupermart-api
+    runtime: node
+    buildCommand: npm ci && npm -w server run build
+    startCommand: npm -w server start
+    healthCheckPath: /health
+    autoDeployTrigger: commit
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: PORT
+        value: 10000
+      - key: MONGO_URI
+        sync: false
+      - key: JWT_SECRET
+        generateValue: true
+      - key: JWT_REFRESH_SECRET
+        generateValue: true
+      - key: JWT_ACCESS_EXPIRES
+        value: 15m
+      - key: JWT_REFRESH_EXPIRES
+        value: 7d
+      - key: OTP_TTL_MINUTES
+        value: 10
+      - key: CLIENT_ORIGIN
+        value: https://triplensupermart-web.onrender.com
+      - key: COOKIE_SECURE
+        value: true
+
+  - type: static
+    name: triplensupermart-web
+    runtime: static
+    buildCommand: npm ci && npm -w client run build
+    staticPublishPath: client/dist
+    autoDeployTrigger: commit
+    envVars:
+      - key: VITE_API_BASE_URL
+        fromService:
+          name: triplensupermart-api
+          type: web
+          property: host
+      - key: VITE_SITE_URL
+        value: https://triplensupermart-web.onrender.com

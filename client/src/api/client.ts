@@ -1,4 +1,10 @@
-const API_BASE_URL = import.meta.env.VITE_API_BASE_URL ?? "/api/v1";
+const rawApiBaseUrl = import.meta.env.VITE_API_BASE_URL ?? "/api/v1";
+const API_BASE_URL =
+  rawApiBaseUrl.startsWith("http://") || rawApiBaseUrl.startsWith("https://")
+    ? rawApiBaseUrl
+    : rawApiBaseUrl.startsWith("/")
+      ? rawApiBaseUrl
+      : `https://${rawApiBaseUrl}`;
 
 export async function apiFetch<T>(path: string, options: RequestInit = {}): Promise<T> {
   const accessToken = localStorage.getItem("accessToken");
